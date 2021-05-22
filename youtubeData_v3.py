@@ -263,8 +263,8 @@ def download_comments_and_content(video_id):
     data_list = get_video_comments(service, part='id,snippet', videoId=video_id, textFormat='plainText')
 
     #print(data_list)
-    # video_content = get_video_content(video_id)  # 0FXKASB1Bd0 _VLjevnS8lw  loO6ws2X50Y# #  BW38guk_fQQ  Rjb9sLL0LZI lUukWG4Fqow
+    video_content = get_video_content(video_id)  # 0FXKASB1Bd0 _VLjevnS8lw  loO6ws2X50Y# #  BW38guk_fQQ  Rjb9sLL0LZI lUukWG4Fqow
     write_to_excel(data_list)
-    # content_list = [[video_content,video_id]]
-    # write_to_excel_content(content_list)
+    content_list = [[video_content,video_id]]
+    write_to_excel_content(content_list)
     mainScript()
