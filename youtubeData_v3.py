@@ -180,7 +180,8 @@ def get_video_content(videoId):
     content_string = ""
     for index in range(0, len_of_text):
         content_string = content_string + " " + text[index]
-    #print("Google speech_recognition text is ", content_string)
+
+    print("Google speech_recognition text is ", content_string)
 
     os.remove('sample.mp3')
     return content_string
@@ -270,7 +271,7 @@ def download_comments_and_content(video_id):
 
     data_list = get_video_comments(service, part='id,snippet', videoId=video_id, textFormat='plainText')
 
-    #print(data_list)
+    print(data_list)
     video_content = get_video_content(video_id)  # 0FXKASB1Bd0 _VLjevnS8lw  loO6ws2X50Y# #  BW38guk_fQQ  Rjb9sLL0LZI lUukWG4Fqow
     write_to_excel(data_list)
     content_list = [[video_content,video_id]]
