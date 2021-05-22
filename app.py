@@ -6,7 +6,7 @@ from dataframe_modify import data_modification
 model = pickle.load(open('gboostv4.pkl', 'rb'))
 if __name__ == "__main__":
 
-    videoId = input('Enter Video id : ') #tD0K9cUd2ys
+    videoId = input('Enter Video id : ') #tD0K9cUd2ys  PrCSvG8gCFg
     download_comments_and_content(str(videoId))
     df = pd.read_csv('data.csv')
     data_frame = data_modification(df)
@@ -23,6 +23,7 @@ if __name__ == "__main__":
     total_comments = len(prediction_series)
     spam_commnets = len(spam_list)
     spam_presentage = (spam_commnets/total_comments)*100
+    print('spam precentage is {}'.format(spam_presentage))
     # make a dataframe without spam commnets
     df_comments = pd.read_excel('comments.xlsx')
     index_names = (df_comments[ df_comments['comment_id'].isin(spam_list) ].index).tolist()

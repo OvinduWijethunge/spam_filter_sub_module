@@ -6,6 +6,8 @@ Created on Thu Jan 14 21:22:19 2021
 """
 from __future__ import unicode_literals
 import pickle
+
+import youtube_dl
 from google_auth_oauthlib.flow import InstalledAppFlow
 from google.auth.transport.requests import Request
 from nltk.tokenize import word_tokenize
@@ -154,17 +156,23 @@ def get_video_content(videoId):
     url = 'https://www.youtube.com/watch?v=' + videoId
     output = "mp3"
     print("Converting...")
-    mp4 = YouTube(url).streams.get_highest_resolution().download()
-    mp3 = mp4.split(".mp4", 1)[0] + f".{output}"
+    ydl_opts = {
+        'format': 'bestaudio/best',
+        'postprocessors': [{
+            'key': 'FFmpegExtractAudio',
+            'preferredcodec': 'mp3',
+            'preferredquality': '192',
+        }],
+    }
 
-    video_clip = VideoFileClip(mp4)
-    audio_clip = video_clip.audio
-    audio_clip.write_audiofile(mp3)
+    with youtube_dl.YoutubeDL(ydl_opts) as ydl:
+        mp4 = ydl.download([url])
 
-    audio_clip.close()
-    video_clip.close()
-    os.rename(mp3, 'sample.mp3')
-    os.remove(mp4)
+    for filename in os.listdir("."):
+
+        if filename[-3:] == 'mp3':
+            os.rename(filename, 'sample.mp3')
+
     text = convert_audio_to_text('sample.mp3')
     os.remove('sample.wav')
 
