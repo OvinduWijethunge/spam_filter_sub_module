@@ -155,5 +155,7 @@ def mainScript():
             link_mob_mail_word_length = link_mob_mail_length_blckword(words_processed_text[i])
             stringList = makes_csv(li_id[i-1], cos_simillerity_content_comment,cos_simillerity_comment_comment,link_mob_mail_word_length[1],duplicate_word_ratio,no_of_sentences,link_mob_mail_word_length[0],num_of_punctuations,is_period_sequence,post_coment_gap,link_mob_mail_word_length[-1],link_mob_mail_word_length[2],link_mob_mail_word_length[3],link_mob_mail_word_length[4],comment_duplication)
             fields_list.append(stringList)
+            
         create_file(fields_list)       
            
+#mainScript()

@@ -207,53 +207,54 @@ def get_video_comments(service, **kwargs):
     while results:
 
         for item in results['items']:
-            data_row = []
-            vid = item['snippet']['topLevelComment']['snippet']['videoId']
-            data_row.append(vid)
-
-            vdate = list_date_title[0]
-            data_row.append(vdate)
-
-            comment_id = item['snippet']['topLevelComment']['id']
-            data_row.append(comment_id)
-
-            comment = item['snippet']['topLevelComment']['snippet']['textDisplay']
-
-            symbols = "!\"#$%&()*+-./:;<=>?@[\]^_`{|}~\n"
-            text = comment
-            for i in range(len(symbols)):  # for a comment
-
-                text = np.char.replace(text, symbols[i], ' ')
-                # text = np.char.replace(text, "  ", " ")
-                text = np.char.replace(text, ',', ' ')
-
-            tokens = word_tokenize(str(text))
-            length = len(tokens) / 2
-            pattern = re.compile("[A-Za-z]+")
-            count = 0
-            for token in tokens:  # for a word
-                if pattern.fullmatch(token) is not None:  # if someone use english he does not use sinhala
-                    count = count + 1  # detect english words
-            if count >= length:
-                continue
-            data_row.append(comment)
-
-            channel_id = item['snippet']['topLevelComment']['snippet']['authorChannelId']['value']
-            data_row.append(channel_id)
-
-            video_title = list_date_title[1]
-            data_row.append(video_title)
-
-            like_count = item['snippet']['topLevelComment']['snippet']['likeCount']
-            data_row.append(like_count)
-
-            published_date = item['snippet']['topLevelComment']['snippet']['publishedAt']
-            data_row.append(published_date)
-
-            updated_date = item['snippet']['topLevelComment']['snippet']['updatedAt']
-            data_row.append(updated_date)
-
-            data_list.append(data_row)
+            try:
+                data_row = []
+                vid = item['snippet']['topLevelComment']['snippet']['videoId']
+                data_row.append(vid)
+                vdate = list_date_title[0]
+                data_row.append(vdate)
+                comment_id = item['snippet']['topLevelComment']['id']
+                data_row.append(comment_id)
+                comment = item['snippet']['topLevelComment']['snippet']['textDisplay']
+                symbols = "!\"#$%&()*+-./:;<=>?@[\]^_`{|}~\n"
+                text = comment
+                for i in range(len(symbols)):  # for a comment
+    
+                    text = np.char.replace(text, symbols[i], ' ')
+                    # text = np.char.replace(text, "  ", " ")
+                    text = np.char.replace(text, ',', ' ')
+    
+                tokens = word_tokenize(str(text))
+                length = len(tokens) / 2
+                pattern = re.compile("[A-Za-z]+")
+                count = 0
+                for token in tokens:  # for a word
+                    if pattern.fullmatch(token) is not None:  # if someone use english he does not use sinhala
+                        count = count + 1  # detect english words
+                if count >= length:
+                    continue
+                data_row.append(comment)
+    
+                channel_id = item['snippet']['topLevelComment']['snippet']['authorChannelId']['value']
+                data_row.append(channel_id)
+    
+                video_title = list_date_title[1]
+                data_row.append(video_title)
+    
+                like_count = item['snippet']['topLevelComment']['snippet']['likeCount']
+                data_row.append(like_count)
+    
+                published_date = item['snippet']['topLevelComment']['snippet']['publishedAt']
+                data_row.append(published_date)
+    
+                updated_date = item['snippet']['topLevelComment']['snippet']['updatedAt']
+                data_row.append(updated_date)
+    
+                data_list.append(data_row)
+                
+                
+            except Exception as e:
+                 print(e)   
         # Check if another page exists
         if 'nextPageToken' in results:
             kwargs['pageToken'] = results['nextPageToken']
@@ -277,3 +278,5 @@ def download_comments_and_content(video_id):
     content_list = [[video_content,video_id]]
     write_to_excel_content(content_list)
     mainScript()
+#idd = 'yRCjfxDAnEU'
+#download_comments_and_content(idd)

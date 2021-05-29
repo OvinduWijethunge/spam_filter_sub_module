@@ -19,11 +19,12 @@ def makes_csv(cid, sim_content,sin_comment ,word_count,duplicate_word_ratio,no_o
     
 def create_file(fields_list):
     
-    
+    print('hllo')
+    print(fields_list)
     fields =  ['cid', 'sim_content','sim_comment' ,'word_count','duplicate_word_ratio','no_of_sentences','length_of_comment','num_of_punctuations','is_period_sequence','post_coment_gap','black_word_count','is_link','is_youtube_link','is_number','comment_duplication']
     rows = fields_list
     
-    filename = "data.csv"
+    filename = "./data.csv"
     with open(filename, 'w') as csvfile:
         writer = csv.writer(csvfile) 
         writer.writerow(fields)  

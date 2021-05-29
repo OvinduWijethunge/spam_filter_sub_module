@@ -3,7 +3,7 @@ import pickle
 from youtubeData_v3 import download_comments_and_content
 from comments_downlod_to_hate_module import get_ham_comments
 from dataframe_modify import data_modification
-model = pickle.load(open('gboostv4.pkl', 'rb'))
+model = pickle.load(open('gboostv5.pkl', 'rb'))
 if __name__ == "__main__":
 
     videoId = input('Enter Video id : ') #tD0K9cUd2ys  PrCSvG8gCFg
@@ -28,8 +28,8 @@ if __name__ == "__main__":
     df_comments = pd.read_excel('comments.xlsx')
     index_names = (df_comments[ df_comments['comment_id'].isin(spam_list) ].index).tolist()
     df_ham_comments = df_comments.drop(index_names) # legitimate comments dataframe for next step.....
-    print("----------------")
-    print(df_ham_comments)
+    #print("----------------")
+    #print(df_ham_comments)
     get_ham_comments(videoId,spam_list)
     
 

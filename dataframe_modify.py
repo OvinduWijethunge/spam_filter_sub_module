@@ -20,10 +20,11 @@ def data_modification(df):
     dfs['num_of_punctuations'] = np.where(dfs['num_of_punctuations']>6,6,dfs['num_of_punctuations'])
     dfs['post_coment_gap'] = np.where(dfs['post_coment_gap']>584487.0,584487.0,dfs['post_coment_gap'])
     
-    dfs['sim_content']=boxcox1p(dfs['sim_content'],0.25)
-    dfs['sim_comment']=boxcox1p(dfs['sim_comment'],0.25)
-    dfs['word_count'],_=stat.boxcox(dfs['word_count'])
-    dfs['length_of_comment']=np.log(dfs['length_of_comment'])
-    dfs['post_coment_gap'],_=stat.boxcox(dfs['post_coment_gap'])
+
+    dfs['sim_content'] = np.log1p(dfs['sim_content'])
+    dfs['sim_comment'] = np.log1p(dfs['sim_comment'])
+    dfs['word_count'] = np.log1p(dfs['word_count'])
+    dfs['length_of_comment'] = np.log1p(dfs['length_of_comment'])
+    dfs['post_coment_gap'] = np.log(dfs['post_coment_gap'])
 
     return dfs
